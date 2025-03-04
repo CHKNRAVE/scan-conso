@@ -122,7 +122,6 @@ header a, footer a {
 
 @media (orientation: portrait) {
 	#scanPanel {
-		width: 100%;
 		margin-bottom: var(--portrait-scan-panel-bottom-margin);
 	}
 }
@@ -217,7 +216,6 @@ header a, footer a {
 }
 
 .codeHeader {
-	/* font-size: var(--code-header-font-size); */
 	margin-block-end: var(--code-header-bottom-margin);
 	width: 100%;
 }
