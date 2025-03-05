@@ -130,6 +130,9 @@ header a, footer a {
 		max-width: var(--landscape-scan-panel-width);
 		height: 100%;
 	}
+	#uploadInfo {
+		max-width: 60%;
+	}
 }
 
 #scanPanel {
@@ -322,8 +325,4 @@ td {
 
 #tutorial h2 span {
 	font-weight: normal;
-}
-
-#uploadInfo {
-	max-width: 60%;
 }
