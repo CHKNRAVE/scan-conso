@@ -8,7 +8,7 @@
 			html, body {
 				max-width: 100%;
 			}
-			p, h1, ul {
+			p, h1, ul, ol {
 				text-align: justify;
 				max-width: 90vw;
 				margin: 0 auto;
@@ -81,6 +81,11 @@
 			</ul>
 		</p>
 		<p>En réponse, l'API envoie une liste de résultats (les différents rappels liés au code-barres demandé) qui peut être vide, au format JSON.</p>
-		<p>Il ne reste plus qu'à afficher la réponse de manière plus accessible.</p>
+		<p>Il ne reste plus qu'à afficher la réponse de manière plus accessible. Les résultats sont triés dans l'ordre :<ol>
+			<li>Rappels trouvés</li>
+			<li>Erreurs lors de la recherche</li>
+			<li>Recherches en cours</li>
+			<li>Aucun rappel répertorié</li>
+		</ol></p>
 	</body>
 </html>
