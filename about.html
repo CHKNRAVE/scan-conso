@@ -57,7 +57,7 @@
 			};
 			exportLocalStorage = function() {
 				const localStorageContents = JSON.stringify(localStorage || {});
-				navigator.clipboard.write(localStorageContents);
+				navigator.clipboard.writeText(localStorageContents);
 				alert("Vos données locales sont maintenant dans votre presse-papiers (copier-coller).\nCollez-les où le souhaitez, par exemple pour transférer vers un autre navigateur.\nCertains navigateurs peuvent demander votre autorisation avant que la copie soit effectuée.");
 			};
 			importLocalStorage = function() {
