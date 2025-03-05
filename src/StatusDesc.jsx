@@ -18,7 +18,6 @@ export default function StatusDesc({recall}) {
 		console.warn("Couldn't split string", string);
 		return {barcode: null, expirationDate: null};
 	});
-	console.log(identificationStrings);
 	return <div className="statusDesc">
 		<span className="recallReason">{recall.motif_rappel}</span>
 		<img className="productImage" src={recall.liens_vers_les_images} onError={ev => ev.target.style.display = "none"} />
