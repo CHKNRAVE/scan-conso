@@ -104,20 +104,20 @@
 				<li>Les utilisateurs qui sont soucieux des données qu'ils transmettent n'ont pas de souci à se faire ici.</li>
 				<li>N'ayant aucune donnée conservée de mon côté, je ne crains pas d'enfreindre des lois comme le RGPD.</li>
 				<li>Vous ne pouvez pas être notifié.e d'un nouveau rappel en dehors de l'application, il faut vérifier ici de temps en temps.</li>
-				<li>Vos produits sont conservés uniquement sur ce navigateur, uniquement sur cet appareil.</li>
+				<li>Vos produits sont conservés uniquement sur ce navigateur, uniquement sur cet appareil, utilisez les boutons ci-dessous pour transférer vos données.</li>
 				<li>Effacer vos données temporaires (en vidant votre historique, votre cache...) risque de tout effacer.<ul>
 					<li>Pour ceux qui s'y connaissent, tout est stocké dans <code>localStorage</code>.</li>
 					<li>Pour ceux qui s'y connaissent moins, vous pouvez <a href="javascript:popUpLocalStorage()">cliquer ici</a> pour afficher le contenu de <code>localStorage</code> dans une alerte du navigateur.</li>
 				</ul></li>
 			</ul>
 		</p>
-		<p>L'application est hébergée via CloudFlare, qui ne garde pas de trace de votre activité ici.</p>
-		<p>Le fonctionnement de l'outil React fait que votre navigateur communique avec le site, uniquement afin de savoir quoi afficher, rien n'est conservé pour cette partie non plus.</p>
 		<div id="storageButtons">
 			<button onclick="clearLocalStorage()">Effacer les données locales</button>
 			<button onclick="exportLocalStorage()">Copier les données locales</button>
 			<button onclick="importLocalStorage()">Importer des données</button>
 		</div>
+		<p>L'application est hébergée via CloudFlare, qui ne garde pas de trace de votre activité ici.</p>
+		<p>Le fonctionnement de l'outil React fait que votre navigateur communique avec le site, uniquement afin de savoir quoi afficher, rien n'est conservé pour cette partie non plus.</p>
 
 		<h1>Fonctionnement</h1>
 		<p>À l'aide d'un <a href="https://www.npmjs.com/package/barcode-detector">module détecteur de codes-barres</a>, l'image que vous envoyez est lue et le premier code-barres trouvé est identifié.</p>
