@@ -130,7 +130,7 @@
 			De retour sur la page principale, l'API du ministère de l'Économie est consultée avec une demande par code-barres.
 			<ul>
 				<li>Par exemple, pour le code-barres <code>3770001691053</code>, l'URL demandée est <a href="https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D3770001691053">celle-ci</a>.</li>
-				<li>Cette adresse envoie une requête SQL <code>WHERE identification_produits LIKE '%3770001691053%'</code>, ou dont le critère est que le GTIN, le code-barres du produit, soit <code>3770001691053</code>.</li>
+				<li>Cette adresse envoie une requête SQL <code>WHERE gtin=3770001691053</code>, ou dont le critère est que le GTIN (le code-barres du produit) soit <code>3770001691053</code>.</li>
 			</ul>
 		</p>
 		<p>En réponse, l'API envoie une liste de résultats (les différents rappels liés au code-barres demandé) qui peut être vide, au format JSON.</p>
