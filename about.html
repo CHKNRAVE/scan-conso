@@ -87,7 +87,7 @@
 			};
 		</script>
 		<h1>Le projet</h1>
-		<p>Scan Conso est une application basée sur l'API <a href='https://data.economie.gouv.fr/explore/dataset/rappelconso-v2-gtin-espaces/information/'>RappelConso V2</a>, documentée sur le site "open data" du site du ministère français de l'Économie.</p>
+		<p>Scan Conso est une application basée sur l'API <a href='https://data.economie.gouv.fr/explore/dataset/rappelconso-v2-gtin-trie/information/'>RappelConso V2</a>, documentée sur le site "open data" du site du ministère français de l'Économie.</p>
 		<p>Cette application est développée par une seule personne indépendante. J'ai débuté ce projet dans le but de maîtriser l'outil de développement web React. Bien entendu, comme je ne fais que commencer, l'application peut sûrement être optimisée à de nombreux endroits.</p>
 		<p>Les icônes utilisées viennent de <a href="https://fontawesome.com/">Font Awesome</a>, elles sont gratuites et open-source.</p>
 
@@ -129,8 +129,8 @@
 		<p>
 			De retour sur la page principale, l'API du ministère de l'Économie est consultée avec une demande par code-barres.
 			<ul>
-				<li>Par exemple, pour le code-barres <code>3770001691053</code>, l'URL demandée est <a href="https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-espaces/records?where=identification_produits%20LIKE%20%27%253770001691053%25%27">celle-ci</a>.</li>
-				<li>Cette adresse envoie une requête SQL <code>WHERE identification_produits LIKE '%3770001691053%'</code>, ou dont le critère est que l'identification du produit contient le code <code>3770001691053</code>. Je me sers de cette même donnée pour le tableau des codes-barres, lots, et dates limites concernés.</li>
+				<li>Par exemple, pour le code-barres <code>3770001691053</code>, l'URL demandée est <a href="https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D3770001691053">celle-ci</a>.</li>
+				<li>Cette adresse envoie une requête SQL <code>WHERE identification_produits LIKE '%3770001691053%'</code>, ou dont le critère est que le GTIN, le code-barres du produit, soit <code>3770001691053</code>.</li>
 			</ul>
 		</p>
 		<p>En réponse, l'API envoie une liste de résultats (les différents rappels liés au code-barres demandé) qui peut être vide, au format JSON.</p>

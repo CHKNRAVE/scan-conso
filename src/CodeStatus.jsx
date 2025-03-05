@@ -32,7 +32,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 
 	useEffect(() => {
 		const controller = new AbortController(), signal = controller.signal;
-		const fetchUrl = `https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-espaces/records?where=identification_produits%20LIKE%20%27%25${value}%25%27`;
+		const fetchUrl = `https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D${value}`;
 		fetch(fetchUrl, {signal}).then(response => response.json(), onFetchFailure).then(onRequestSuccess, onResponseParsingFailure);
 
 		return () => controller.abort("Cleaned up");
