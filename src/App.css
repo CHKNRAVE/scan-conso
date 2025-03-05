@@ -309,3 +309,17 @@ td {
 .codeDesc {
 	font-size: 0.75rem;
 }
+
+.codeList:has(.codeStatus) ~ #tutorial {
+	display: none;
+}
+
+#tutorial {
+	margin: 0 auto;
+	width: max-content;
+	max-width: 60vw;
+}
+
+#tutorial h2 span {
+	font-weight: normal;
+}

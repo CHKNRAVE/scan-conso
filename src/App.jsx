@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Scan from './Scan';
 import Header from './Header';
 import CodeList from './CodeList';
+import Tutorial from './Tutorial';
 
 export default function App() {
 	const [scanPanelOpenState, setScanPanelOpenState]= useState(false);
@@ -15,5 +16,6 @@ export default function App() {
 			<Scan />
 		</>}
 		<CodeList />
+		<Tutorial />
 	</>
 };
