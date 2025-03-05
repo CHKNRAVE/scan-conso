@@ -20,7 +20,7 @@ export default function StatusDesc({recall}) {
 	});
 	return <div className="statusDesc">
 		<span className="recallReason">{recall.motif_rappel}</span>
-		<img className="productImage" src={recall.liens_vers_les_images} onError={ev => ev.target.style.display = "none"} />
+		<img className="productImage" src={recall.liens_vers_les_images.split("|")[0]} onError={ev => ev.target.style.display = "none"} />
 		<span>
 			<span className="brandName">{recall.marque_produit}</span> — <span className="productName">{recall.modeles_ou_references}</span>
 		</span>
