@@ -108,9 +108,9 @@
 				<li>Vous ne pouvez pas être notifié.e d'un nouveau rappel en dehors de l'application, il faut vérifier ici de temps en temps.</li>
 				<li>Effacer vos données temporaires (en vidant votre historique, votre cache...) risque de tout effacer.</li>
 			</ul>
-			Utilisez les boutons ci-dessous pour transférer vos données.
 		</p>
 		<div id="storageButtons">
+			<span>Utilisez les boutons ci-dessous pour transférer vos données.</span>
 			<button onclick="clearLocalStorage()">Effacer les données locales</button>
 			<button onclick="exportLocalStorage()">Copier les données locales</button>
 			<button onclick="importLocalStorage()">Importer des données</button>
@@ -123,6 +123,7 @@
 		<h1>Fonctionnement</h1>
 		<p>À l'aide d'un <a href="https://www.npmjs.com/package/barcode-detector">module détecteur de codes-barres</a>, l'image que vous envoyez est lue et le premier code-barres trouvé est identifié.</p>
 		<p>Si le code correspond bien à l'image, vous pouvez valider, et il sera sauvegardé localement.</p>
+		<p>Le détecteur de codes-barres peut ne pas trouver de code. Dans ce cas, vous pouvez le rentrer manuellement.</p>
 		<p>
 			De retour sur la page principale, l'API du ministère de l'Économie est consultée avec une demande par code-barres.
 			<ul>
@@ -137,5 +138,6 @@
 			<li>Recherches en cours</li>
 			<li>Aucun rappel répertorié</li>
 		</ol></p>
+		<p>Si un rappel est trouvé, vérifiez les références concernées, et les informations complètes sur Rappel Conso.</p>
 	</body>
 </html>
