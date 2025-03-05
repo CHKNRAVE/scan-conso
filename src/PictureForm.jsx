@@ -27,6 +27,7 @@ export default function PictureForm() {
 		setCodeLabel(null);
 		setCodeValue(null);
 		setCodeLabel("");
+		submittedImageRef.current.value = "";
 	};
 
 	const onFileInput = function(ev) {
