@@ -10,10 +10,6 @@ export default function CodeList() {
 	];
 	
 	return <div className="codeList">
-		<span id="warningHeader" />
-		<span id="errorHeader" />
-		<span id="loadingHeader" />
-		<span id="clearHeader" />
 		{codeTypes.map(codeType => {
 			return Object.entries(codesByType(codeType)).map(([codeValue, codeLabel]) => {
 				return <CodeStatus key={`${codeType}#${codeValue}`} type={codeType} value={codeValue} label={codeLabel} forceRefresh={forceRefresh} />

@@ -199,47 +199,43 @@ header a, footer a {
 	grid-row: span var(--grid-rows, 1);
 }
 
-#warningHeader {
+#warningHeader, #errorHeader, #loadingHeader, #clearHeader {
 	display: none;
-	width: 100%;
-	height: 0;
-	order: 1;
+	grid-column-end: -1;
 }
-#errorHeader {
-	display: none;
-	width: 100%;
-	height: 0;
-	order: 3;
+
+.warning {
+	order: 1 !important;
+	--border-color: var(--warning-border-color);
+	--background-color: var(--warning-background-color);
 }
-#loadingHeader {
-	display: none;
-	width: 100%;
-	height: 0;
-	order: 5;
-}
-#clearHeader {
-	display: none;
-	width: 100%;
-	height: 0;
-	order: 7;
+.error {
+	order: 2 !important;
+	--border-color: var(--error-border-color);
+	--background-color: var(--error-background-color);
 }
 .clear {
-	order: 8 !important;
+	order: 4 !important;
 	--border-color: var(--clear-border-color);
 	--background-color: var(--clear-background-color);
 }
 .clear .statusDesc {
 	text-align: center;
 }
-.warning {
-	order: 2 !important;
-	--border-color: var(--warning-border-color);
-	--background-color: var(--warning-background-color);
+.warning, .error, .loading, .clear  {
+	grid-column-start: 1;
 }
-.error {
-	order: 4 !important;
-	--border-color: var(--error-border-color);
-	--background-color: var(--error-background-color);
+.warning ~ .warning  {
+	grid-column-start: unset;
+}
+.error ~ .error  {
+	grid-column-start: unset;
+}
+.loading ~ .loading  {
+	grid-column-start: unset;
+}
+.clear ~ .clear  {
+	grid-column-start: unset;
 }
 
 .codeHeader {
