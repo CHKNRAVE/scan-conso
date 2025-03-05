@@ -127,7 +127,7 @@ header a, footer a {
 }
 @media (orientation: landscape) {
 	#scanPanel {
-		width: var(--landscape-scan-panel-width);
+		max-width: var(--landscape-scan-panel-width);
 		height: 100%;
 	}
 }
@@ -322,4 +322,8 @@ td {
 
 #tutorial h2 span {
 	font-weight: normal;
+}
+
+#uploadInfo {
+	max-width: 60%;
 }

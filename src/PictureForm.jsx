@@ -58,7 +58,7 @@ export default function PictureForm() {
 		<h2>Scanner un code</h2>
 		<div id="uploadField">
 			<input type="file" accept="/image" onInput={onFileInput} />
-			<p>
+			<p id="uploadInfo">
 				Vos photos ne sont ni conservées, ni mises en ligne.<br />
 				Le code-barres va être lu localement.<br />
 				Vous allez recevoir un avertissement avant de quitter la page, il sert à empêcher une actualisation automatique après avoir pris une photo.
