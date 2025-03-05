@@ -40,6 +40,25 @@
 					alert("L'objet localStorage est actuellement vide. Scannez un premier code-barres, et des premières données seront visibles dans cette alerte.");
 				};
 			};
+			clearLocalStorage = function() {
+				const clearConfirmed = confirm("Voulez-vous vraiment vider vos données locales pour Scan Conso ?\nAssurez-vous de les avoir exportées, il s'agit de tous vos codes-barres.");
+				if(!clearConfirmed) return;
+				localStorage.clear();
+				alert("Les données locales ont été effacées.");
+			};
+			exportLocalStorage = function() {
+				const localStorageContents = JSON.stringify(localStorage) || {};
+				navigator.clipboard.write(localStorageContents);
+				alert("Vos données locales sont maintenant dans votre presse-papiers (copier-coller).\nCollez-les où le souhaitez, par exemple pour transférer vers un autre navigateur.\nCertains navigateurs peuvent demander votre autorisation avant que la copie soit effectuée.");
+			};
+			importLocalStorage = function() {
+				const pastedContents = prompt("Collez les données à ajouter.");
+				const pastedObject = JSON.parse(pastedContents);
+				if(typeof pastedObject !== "object") return alert(`Vous n'avez pas collé des données valides.\nLe format attendu est sous la forne: { }`);
+				if(!Object.values(pastedObject).every(value => {
+					return typeof value === "object" && Object.entries(value).every(([key, val]) => key == Number(key) && typeof val === "string");
+				})) return alert(`Vous n'avez pas collé des données valides.\nLe format attendu est sous la forne: {"t":{"c":"s", ...}}\n(t : type de code, c : code, s : surnom, ... : d'autres paires de codes et surnoms)`);
+			};
 		</script>
 		<h1>Le projet</h1>
 		<p>Scan Conso est une application basée sur l'API <a href='https://data.economie.gouv.fr/explore/dataset/rappelconso-v2-gtin-espaces/information/'>RappelConso V2</a>, documentée sur le site "open data" du site du ministère français de l'Économie.</p>
@@ -67,8 +86,13 @@
 				</ul></li>
 			</ul>
 		</p>
-		<p>L'application est hébergée via CloudFlare, je ne les ai pas vus garder une trace de votre activité sur ce site, mais il est possible que je me trompe.</p>
-		<p>Le fonctionnement de l'outil React fait que votre navigateur communique avec mon site, uniquement afin de savoir quoi afficher, rien n'est conservé pour cette partie non plus.</p>
+		<p>L'application est hébergée via CloudFlare, qui ne garde pas de trace de votre activité ici.</p>
+		<p>Le fonctionnement de l'outil React fait que votre navigateur communique avec le site, uniquement afin de savoir quoi afficher, rien n'est conservé pour cette partie non plus.</p>
+		<p>
+			<button onclick="clearLocalStorage">Effacer les données locales</button><br>
+			<button onclick="exportLocalStorage">Copier les données locales</button><br>
+			<button onclick="importLocalStorage">Importer des données</button>
+		</p>
 
 		<h1>Fonctionnement</h1>
 		<p>À l'aide d'un <a href="https://www.npmjs.com/package/barcode-detector">module détecteur de codes-barres</a>, l'image que vous envoyez est lue et le premier code-barres trouvé est identifié.</p>
