@@ -45,7 +45,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 			<span className="codeDetails">{verboseCodeTypes[type]} {value}</span>
 		</div>
 		{data && data.map(recall => <StatusDesc key={recall.rappel_guid} recall={recall} />)}
-		{status === "clear" && <span className="statusDesc">RàS</span>}
+		{status === "clear" && <span className="statusDesc">Aucun rappel signalé !</span>}
 		{status === "error" && <span className="statusDesc">Erreur lors de l'obtention des résultats.<br />{errorDesc}</span>}
 	</div>
 };
