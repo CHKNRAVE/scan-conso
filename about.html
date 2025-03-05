@@ -63,11 +63,26 @@
 			importLocalStorage = function() {
 				const pastedContents = prompt("Collez les données à ajouter.");
 				if(!pastedContents) return;
-				const pastedObject = JSON.parse(pastedContents);
-				if(typeof pastedObject !== "object") return alert(`Vous n'avez pas collé des données valides.\nLe format attendu est sous la forne: { }`);
-				if(!Object.values(pastedObject).every(value => {
-					return typeof value === "object" && Object.entries(value).every(([key, val]) => key == Number(key) && typeof val === "string");
-				})) return alert(`Vous n'avez pas collé des données valides.\nLe format attendu est sous la forne: {"t":{"c":"s", ...}}\n(t : type de code, c : code, s : surnom, ... : d'autres paires de codes et surnoms)`);
+				try {
+					const pastedObject = JSON.parse(pastedContents);
+					console.log("Pasted object", pastedObject);
+					for(const key of Object.keys(pastedObject)) {
+
+						const localItem = JSON.parse(localStorage.getItem(key) || "{}");
+						console.log("localItem", localItem);
+
+						const pastedItem = JSON.parse(pastedObject[key]) || {};
+						console.log("pastedItem", pastedItem);
+
+						const combinedItem = {...localItem, ...pastedItem};
+						console.log("combinedItem", combinedItem);
+
+						localStorage.setItem(key, JSON.stringify(combinedItem));
+					};
+					alert("Importation effectuée. Si un code existant est identique à un que vous avez collé, son surnom est remplacé.");
+				} catch (error) {
+					alert(`Vous n'avez pas collé des données valides.\nLe format attendu est sous la forne: { }`);
+				}
 			};
 		</script>
 		<h1>Le projet</h1>
