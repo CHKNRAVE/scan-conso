@@ -70,13 +70,8 @@
 					for(const key of Object.keys(pastedObject)) {
 
 						const localItem = JSON.parse(localStorage.getItem(key) || "{}");
-						console.log("localItem", localItem);
-
 						const pastedItem = JSON.parse(pastedObject[key]) || {};
-						console.log("pastedItem", pastedItem);
-
 						const combinedItem = {...localItem, ...pastedItem};
-						console.log("combinedItem", combinedItem);
 
 						localStorage.setItem(key, JSON.stringify(combinedItem));
 					};
