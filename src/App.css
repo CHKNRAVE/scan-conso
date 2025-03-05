@@ -110,7 +110,7 @@ header a, footer a {
 
 #panelDarkBackground {
 	animation: darkPanelFadeIn 0.5s;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -286,6 +286,9 @@ td {
 
 #manualForm {
 	font-size: 1.25em;
+	display: flex;
+	flex-flow: column;
+	row-gap: 0.25em;
 }
 
 #manualForm label {
@@ -325,4 +328,8 @@ td {
 
 #tutorial h2 span {
 	font-weight: normal;
+}
+
+#uploadInfo {
+	text-align: justify;
 }
