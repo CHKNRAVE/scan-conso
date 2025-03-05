@@ -38,7 +38,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		return () => controller.abort("Cleaned up");
 	}, [value]);
 
-	return <div className={`codeStatus ${status}`}>
+	return <div className={`codeStatus ${status}`} data-height={data?.length || 1}>
 		<div className="codeHeader">
 			<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
 			<span className="codeLabel">{label}</span><br />

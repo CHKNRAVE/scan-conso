@@ -163,11 +163,25 @@ header a, footer a {
 }
 
 .codeList {
-	display: flex;
-	flex-flow: wrap;
+	display: grid;
+	align-items: center;
 	gap: var(--code-list-vertical-gap) var(--code-list-horizontal-gap);
 	justify-content: space-around;
 	margin-top: var(--code-list-top-margin);
+	justify-items: center;
+	grid-template-columns: repeat(1, 1fr);
+	@media (max-width: 120ch) and (min-width: 80ch) {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	@media (max-width: 160ch) and (min-width: 120ch) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+	@media (max-width: 200ch) and (min-width: 160ch) {
+		grid-template-columns: repeat(4, 1fr);
+	}
+	@media (max-width: 240ch) and (min-width: 200ch) {
+		grid-template-columns: repeat(5, 1fr);
+	}
 }
 
 .codeStatus {
@@ -181,24 +195,30 @@ header a, footer a {
 	background-color: var(--background-color, var(--default-background-color));
 	justify-content: space-between;
 	order: 3;
+	align-content: flex-start;
+	grid-row: span var(--grid-rows, 1);
 }
 
 #warningHeader {
+	display: none;
 	width: 100%;
 	height: 0;
 	order: 1;
 }
 #errorHeader {
+	display: none;
 	width: 100%;
 	height: 0;
 	order: 3;
 }
 #loadingHeader {
+	display: none;
 	width: 100%;
 	height: 0;
 	order: 5;
 }
 #clearHeader {
+	display: none;
 	width: 100%;
 	height: 0;
 	order: 7;
@@ -245,6 +265,26 @@ header a, footer a {
 	height: var(--delete-icon-size);
 	color: var(--france-white);
 	padding: var(--icon-padding);
+}
+
+[data-height="1"] {
+	--grid-rows: 1;
+}
+
+[data-height="2"] {
+	--grid-rows: 2;
+}
+
+[data-height="3"] {
+	--grid-rows: 3;
+}
+
+[data-height="4"] {
+	--grid-rows: 4;
+}
+
+[data-height="5"] {
+	--grid-rows: 5;
 }
 
 .statusDesc {
