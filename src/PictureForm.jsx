@@ -64,7 +64,7 @@ export default function PictureForm() {
 				Vous allez recevoir un avertissement avant de quitter la page, il sert à empêcher une actualisation automatique après avoir pris une photo.
 			</p>
 		</div>
-		<img ref={submittedImageRef} src={uploadedImage} id="submittedImage" /><br />
+		<img ref={submittedImageRef} src={uploadedImage} id="submittedImage" />
 		{uploadedImage && !fileValidated && <button onClick={onPictureSubmission}>Trouver un code</button>}
 		<form onSubmit={onFormSubmission}>
 			{fileValidated && <div>Type de code trouvé : {codeType || "aucun"}</div>}

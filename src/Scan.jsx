@@ -4,7 +4,7 @@ import ManualForm from "./ManualForm";
 export default function Scan() {
 	return <div id="scanPanel" onClick={ev => ev.stopPropagation()}>
 		<PictureForm />
-		<span>ou</span>
+		<h4>ou</h4>
 		<ManualForm />
 	</div>
 };

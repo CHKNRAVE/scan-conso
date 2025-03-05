@@ -150,6 +150,7 @@ header a, footer a {
 #submittedImage {
 	max-width: var(--submitted-image-max-size);
 	max-height: var(--submitted-image-max-size);
+	margin-bottom: 0.75em;
 }
 
 #uploadField {
