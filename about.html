@@ -97,25 +97,26 @@
 		<h1>Vie privée</h1>
 		<p>Les recherches de rappels que vous effectuez via cette application sont envoyées directement de votre navigateur à l'API citée plus haut. Renseignez-vous auprès de votre navigateur et du site du ministère de l'Économie, pour savoir ce qu'ils en font par la suite.</p>
 		<p>
-			Cette application n'utilise pas de cookie. Les produits que vous enregistrez sont conservés au niveau du navigateur.<br>
-			Quelques avantages et inconvénients :
+			Cette application ne stocke pas vos codes dans un serveur. Ils sont conservés dans votre navigateur, sans cookie parce que c'est l'application et non un serveur qui les utilise.<br>
+			Quelques avantages :
 			<ul>
-				<li>Les coûts sont minimisés de mon côté, ce qui me permet de garder cette application non-lucrative en vie.</li>
-				<li>Les utilisateurs qui sont soucieux des données qu'ils transmettent n'ont pas de souci à se faire ici.</li>
-				<li>N'ayant aucune donnée conservée de mon côté, je ne crains pas d'enfreindre des lois comme le RGPD.</li>
-				<li>Vous ne pouvez pas être notifié.e d'un nouveau rappel en dehors de l'application, il faut vérifier ici de temps en temps.</li>
-				<li>Vos produits sont conservés uniquement sur ce navigateur, uniquement sur cet appareil, utilisez les boutons ci-dessous pour transférer vos données.</li>
-				<li>Effacer vos données temporaires (en vidant votre historique, votre cache...) risque de tout effacer.<ul>
-					<li>Pour ceux qui s'y connaissent, tout est stocké dans <code>localStorage</code>.</li>
-					<li>Pour ceux qui s'y connaissent moins, vous pouvez <a href="javascript:popUpLocalStorage()">cliquer ici</a> pour afficher le contenu de <code>localStorage</code> dans une alerte du navigateur.</li>
-				</ul></li>
+				<li>Les coûts sont minimisés de mon côté, ce qui me permet de garder cette application en vie plus facilement.</li>
+				<li>N'ayant aucune donnée personnelle conservée de mon côté, je ne crains pas d'enfreindre des lois comme le RGPD, et les utilisateurs soucieux de leurs données personnelles sont rassurés.</li>
 			</ul>
+			Quelques inconvénients :
+			<ul>
+				<li>Vous ne pouvez pas être notifié.e d'un nouveau rappel en dehors de l'application, il faut vérifier ici de temps en temps.</li>
+				<li>Effacer vos données temporaires (en vidant votre historique, votre cache...) risque de tout effacer.</li>
+			</ul>
+			Utilisez les boutons ci-dessous pour transférer vos données.
 		</p>
 		<div id="storageButtons">
 			<button onclick="clearLocalStorage()">Effacer les données locales</button>
 			<button onclick="exportLocalStorage()">Copier les données locales</button>
 			<button onclick="importLocalStorage()">Importer des données</button>
 		</div>
+		<p>Tout est stocké dans <code>localStorage</code>. Les navigateurs lui accordent une taille maximale de 5MB en moyenne, soit plus de 130000 codes-barres avec des surnoms de 20 caractères chacun.</p>
+		<p>Vous pouvez <a href="javascript:popUpLocalStorage()">cliquer ici</a> pour afficher le contenu de <code>localStorage</code> dans une alerte du navigateur, et ainsi voir 100% de ce qui est stocké dans votre navigateur pour ce site.</p>
 		<p>L'application est hébergée via CloudFlare, qui ne garde pas de trace de votre activité ici.</p>
 		<p>Le fonctionnement de l'outil React fait que votre navigateur communique avec le site, uniquement afin de savoir quoi afficher, rien n'est conservé pour cette partie non plus.</p>
 
