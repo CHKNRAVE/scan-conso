@@ -12,7 +12,7 @@
 	--warning-background-color: Salmon;
 	--warning-border-color: DarkRed;
 
-	--button-hover-brightness-rate: 1.25;
+	--button-hover-brightness-rate: 1.5;
 	--code-div-border-size: 0.5ch;
 	--code-div-min-height: 5em;
 	--code-div-width: 40ch;
@@ -237,7 +237,6 @@ header a, footer a {
 }
 
 .deleteButton:hover {
-	--button-hover-brightness-rate: 1.25;
 	filter: brightness(var(--button-hover-brightness-rate));
 }
 
