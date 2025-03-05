@@ -27,7 +27,6 @@ export default function PictureForm() {
 		setCodeLabel(null);
 		setCodeValue(null);
 		setCodeLabel("");
-		submittedImageRef.current.value = "";
 	};
 
 	const onFileInput = function(ev) {
@@ -58,7 +57,7 @@ export default function PictureForm() {
 	return <>
 		<h2>Scanner un code</h2>
 		<div id="uploadField">
-			<input type="file" accept="/image" onInput={onFileInput} />
+			<input type="file" accept="/image" value={""} onInput={onFileInput} />
 			{!uploadedImage && <p id="uploadInfo">
 				Vos photos ne sont ni conservées, ni mises en ligne.<br />
 				Le code-barres va être lu localement.<br />
