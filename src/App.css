@@ -373,3 +373,25 @@ td {
 	text-align: justify;
 	text-wrap: balance;
 }
+
+.codeList:has(.codeStatus) ~ #installPrompt, .codeList:has(.codeStatus) ~ #notificationPrompt  {
+	display: flex;
+}
+
+#installPrompt, #notificationPrompt {
+	display: none;
+	flex-flow: column;
+	text-align: center;
+	width: fit-content;
+	margin: 0 auto;
+	padding: 0.5em 1ch;
+}
+
+#installPrompt button, #notificationPrompt button {
+	font-size: 1.25em;
+	width: 100%;
+}
+
+#installPrompt p, #notificationPrompt p {
+	margin-block-start: 0;
+}
