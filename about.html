@@ -7,6 +7,7 @@
 		<style>
 			html, body {
 				max-width: 100%;
+				margin-bottom: 2em !important;
 			}
 			p, h1, h2, ul, ol, #storageButtons {
 				text-align: justify;
@@ -80,10 +81,14 @@
 					alert(`Vous n'avez pas collé des données valides.\nLe format attendu est sous la forne: { }`);
 				}
 			};
+			resetDismissedRecalls = function() {
+				localStorage.setItem("dismissed", "[]");
+				alert("Votre liste de rappels masqués est maintenant vide.");
+			};
 		</script>
 		<h1>Le projet</h1>
 		<p>Scan Conso est une application basée sur l'API <a href='https://data.economie.gouv.fr/explore/dataset/rappelconso-v2-gtin-trie/information/'>RappelConso V2</a>, documentée sur le site "open data" du site du ministère français de l'Économie.</p>
-		<p>Cette application est développée par une seule personne indépendante. J'ai débuté ce projet dans le but de maîtriser l'outil de développement web React. Bien entendu, comme je ne fais que commencer, l'application peut sûrement être optimisée à de nombreux endroits.</p>
+		<p>Cette application est développée par une seule personne indépendante. J'ai débuté ce projet dans le but de maîtriser <a href="https://react.dev/">React</a>. Bien entendu, comme je ne fais que commencer, Scan Conso va continuer d'être amélioré au fil du temps.</p>
 		<p>Les icônes utilisées viennent de <a href="https://fontawesome.com/">Font Awesome</a>, elles sont gratuites et open-source.</p>
 
 		<h1>Responsabilités</h1>
@@ -100,32 +105,30 @@
 			</ul>
 		</p>
 		<p>Attention, effacer vos données temporaires (en vidant votre historique, votre cache...) risque de tout effacer.</p>
-		<p>Utilisez les boutons ci-dessous pour manipuler vos données, par exemple pour vous faire une copie de sauvegarde.</p>
+		<p>Utilisez les boutons ci-dessous pour manipuler vos données, par exemple pour garder une copie de sauvegarde.</p>
 		<div id="storageButtons">
-			<button onclick="clearLocalStorage()">Effacer les données locales</button>
 			<button onclick="exportLocalStorage()">Copier les données locales</button>
 			<button onclick="importLocalStorage()">Importer des données</button>
+			<button onclick="clearLocalStorage()">Effacer les données locales</button>
+			<button onclick="resetDismissedRecalls()">Réinitialiser les rappels masqués</button>
 		</div>
 		<p title="13 octets pour le code, 20 pour le surnom, 6 pour la ponctuation du format JSON = 39 octets par code + surnom. 5Mo = 5 * 1024ko = 5120 * 1024 octets">Tout est stocké dans <code>localStorage</code>. Les navigateurs lui accordent une taille maximale de 5Mo en moyenne, soit plus de 130000 codes-barres avec des surnoms de 20 caractères chacun.</p>
 		<p>Vous pouvez <a href="javascript:popUpLocalStorage()">cliquer ici</a> pour afficher le contenu de <code>localStorage</code> dans une alerte du navigateur, et ainsi voir 100% de ce qui est stocké dans votre navigateur pour ce site.</p>
-		<p>L'application est hébergée via CloudFlare, qui ne garde pas de trace de votre activité ici.</p>
-		<p>conso.gouv.fr, cependant, enregistre un cookie quand l'API est appelée.</p>
-		<p>Le fonctionnement de l'outil React fait que votre navigateur communique avec le site, uniquement afin de savoir quoi afficher, rien n'est conservé pour cette partie non plus.</p>
+		<p>L'application est hébergée via CloudFlare, qui ne garde pas de trace de vos codes-barres scannés ou recherchés.</p>
+		<p>gouv.fr et ses autres sites, cependant, enregistrent parfois un cookie quand l'API est appelée.</p>
 
 		<h1>Fonctionnement</h1>
-		<p>À l'aide d'un <a href="https://www.npmjs.com/package/barcode-detector">module détecteur de codes-barres</a>, l'image que vous envoyez est lue et le premier code-barres trouvé est identifié.</p>
+		<p>À l'aide d'un <a href="https://www.npmjs.com/package/barcode-detector">module détecteur de codes-barres</a>, l'image que vous envoyez est lue localement (en utilisant les ressources de votre appareil) et le premier code-barres trouvé est identifié.</p>
 		<p>Si le code correspond bien à l'image, vous pouvez valider, et il sera sauvegardé localement.</p>
 		<p>Le détecteur de codes-barres peut ne pas trouver de code. Dans ce cas, vous pouvez le rentrer manuellement.</p>
 		<p>
-			De retour sur la page principale, l'API du ministère de l'Économie est consultée avec une demande par code-barres.
-			<ul>
-				<li>Par exemple, pour le code-barres <code>3770001691053</code>, l'URL demandée est <a href="https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D3770001691053">celle-ci</a>.</li>
-				<li>Cette adresse envoie une requête SQL <code>WHERE gtin=3770001691053</code>, ou dont le critère est que le GTIN (le code-barres du produit) soit <code>3770001691053</code>.</li>
-			</ul>
+			De retour sur la page principale, l'API du ministère de l'Économie est consultée avec une demande par code-barres.<br>
+			Par exemple, pour le code-barres <code>3770001691053</code>, l'URL demandée est <a href="https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D3770001691053">celle-ci</a>.<br>
+			Cette adresse envoie une requête SQL <code>WHERE gtin=3770001691053</code>, ou dont le critère est que le GTIN (le code-barres du produit) soit <code>3770001691053</code>.
 		</p>
 		<p>En réponse, l'API envoie une liste de résultats (les différents rappels liés au code-barres demandé) qui peut être vide, au format JSON.</p>
 		<p>Il ne reste plus qu'à afficher la réponse de manière plus accessible. Les résultats sont triés dans l'ordre :<ol>
-			<li>Rappels trouvés</li>
+			<li>Rappels trouvés parmi ceux qui ne sont pas masqués</li>
 			<li>Erreurs lors de la recherche</li>
 			<li>Recherches en cours</li>
 			<li>Aucun rappel répertorié</li>
@@ -136,6 +139,6 @@
 		<p>Installer le site en tant qu'application le rend simplement plus facile d'accès.</p>
 		<p>Activer les notifications met en place un <i>Service Worker</i> : tant que le site ou son appli n'est pas fermé, toutes les 12 heures, il va effectuer une synchronisation automatique.</p>
 		<p>Cette synchronisation va tenter de refaire les demandes de rappels, et s'il en retrouve qui sont plus récents que la dernière vérification, va vous avertir via une notification.</p>
-		<p>Tout ça toujours sans stocker de données ailleurs ! Vous n'aurez besoin d'ouvrir Scan Conso que si vous l'avez fermé, si vous avez éteint votre appareil, ou pour toucher à vos codes.</p>
+		<p>Tout ça toujours sans stocker de données ailleurs ! Vous n'aurez besoin d'ouvrir Scan Conso que si vous l'avez fermé, si vous avez éteint votre appareil, ou pour toucher à vos codes-barres.</p>
 	</body>
 </html>

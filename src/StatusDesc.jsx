@@ -1,4 +1,6 @@
-export default function StatusDesc({recall}) {
+import DismissButton from "./DismissButton";
+
+export default function StatusDesc({recall, forceReload}) {
 	let hasExpirationDate, hasSetNumber;
 	const identificationStrings = recall.identification_produits.split("|").map(string => {
 		const dollarSplit = string.split("$");
@@ -16,7 +18,10 @@ export default function StatusDesc({recall}) {
 		return {barcode, setNumber, expirationDate};
 	});
 	return <div className="statusDesc">
-		<span className="recallReason">{recall.motif_rappel}</span>
+		<span>
+			<DismissButton guid={recall.rappel_guid} forceReload={forceReload}/>
+			<span className="recallReason">{recall.motif_rappel}</span>
+		</span>
 		<img className="productImage" src={recall.liens_vers_les_images.split("|")[0]} onError={ev => ev.target.style.display = "none"} />
 		<span>
 			<span className="brandName">{recall.marque_produit}</span> — <span className="productName">{recall.modeles_ou_references}</span>
