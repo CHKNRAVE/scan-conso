@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { DeleteButton } from "./DeleteButton";
 import StatusDesc from "./StatusDesc";
+import { getDismissedRecalls } from "./dismissedRecalls.mjs";
 
 const verboseCodeTypes = {
 	"ean_13": "Code-barres"
@@ -8,13 +9,16 @@ const verboseCodeTypes = {
 
 export default function CodeStatus({type, value, label, forceRefresh}) {
 	const [status, setStatus] = useState("loading");
-	const [data, setData] = useState(null);
+	const [data, setResults] = useState(null);
 	const [errorDesc, setErrorDesc] = useState(null);
+	const [forcedReloadCount, forceReload] = useState(0);
+	const [ignoredCount, setIgnoredCount] = useState(0);
 
 	const onFetchFailure = function(reason) {
 		if(reason === "Cleaned up") return Promise.reject(reason);
 		console.error("Fetch failure on barcode", type, value, "\n", reason);
 		setStatus("error");
+		setErrorDesc("Erreur inconnue à l'obtention des résultats.");
 
 		return Promise.reject();
 	};
@@ -23,11 +27,15 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		if(reason === "Cleaned up") return;
 		console.error("Fetch failure on barcode", type, value, "\n", reason);
 		setStatus("error");
+		setErrorDesc("Erreur inconnue à l'obtention des résultats.");
 	};
 
 	const onRequestSuccess = function(fetchedData) {
-		setData(fetchedData.results);
-		setStatus(fetchedData.total_count > 0 ? "warning" : "clear");
+		const dismissedRecalls = getDismissedRecalls();
+		const results = fetchedData?.results.filter(data => !dismissedRecalls.includes(data.rappel_guid));
+		setResults(results);
+		setIgnoredCount(fetchedData.results.length - results.length);
+		setStatus(results.length > 0 ? "warning" : "clear");
 	};
 
 	useEffect(() => {
@@ -36,7 +44,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		fetch(fetchUrl, {signal}).then(response => response.json(), onFetchFailure).then(onRequestSuccess, onResponseParsingFailure);
 
 		return () => controller.abort("Cleaned up");
-	}, [value]);
+	}, [value, forcedReloadCount]);
 
 	return <div className={`codeStatus ${status}`} data-height={data?.length || 1}>
 		<div className="codeHeader">
@@ -44,8 +52,10 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 			<span className="codeLabel">{label}</span><br />
 			<span className="codeDetails">{verboseCodeTypes[type]} {value}</span>
 		</div>
-		{data && data.map(recall => <StatusDesc key={recall.rappel_guid} recall={recall} />)}
-		{status === "clear" && <span className="statusDesc">Aucun rappel signalé !</span>}
+		{data && data.map(recall => <StatusDesc key={recall.rappel_guid} recall={recall} forceReload={forceReload} />)}
+		{status === "clear" && ignoredCount === 0 && <span className="statusDesc">Aucun rappel signalé !</span>}
+		{status === "clear" && ignoredCount === 1 && <span className="statusDesc">1 rappel masqué</span>}
+		{status === "clear" && ignoredCount > 1 && <span className="statusDesc">{ignoredCount} rappels masqués</span>}
 		{status === "error" && <span className="statusDesc">Erreur lors de l'obtention des résultats.<br />{errorDesc}</span>}
 	</div>
 };
