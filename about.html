@@ -114,8 +114,9 @@
 		</div>
 		<p title="13 octets pour le code, 20 pour le surnom, 6 pour la ponctuation du format JSON = 39 octets par code + surnom. 5Mo = 5 * 1024ko = 5120 * 1024 octets">Tout est stocké dans <code>localStorage</code>. Les navigateurs lui accordent une taille maximale de 5Mo en moyenne, soit plus de 130000 codes-barres avec des surnoms de 20 caractères chacun.</p>
 		<p>Vous pouvez <a href="javascript:popUpLocalStorage()">cliquer ici</a> pour afficher le contenu de <code>localStorage</code> dans une alerte du navigateur, et ainsi voir 100% de ce qui est stocké dans votre navigateur pour ce site.</p>
-		<p>L'application est hébergée via CloudFlare, qui ne garde pas de trace de vos codes-barres scannés ou recherchés.</p>
+		<p>L'application est hébergée via Cloudflare, qui ne garde pas de trace de vos codes-barres scannés ou recherchés.</p>
 		<p>gouv.fr et ses autres sites, cependant, enregistrent parfois un cookie quand l'API est appelée.</p>
+		<p>Afin de mesurer la popularité de Scan Conso, Cloudflare enregistre aussi le nombre de visites par pays.</p>
 
 		<h1>Fonctionnement</h1>
 		<p>À l'aide d'un <a href="https://www.npmjs.com/package/barcode-detector">module détecteur de codes-barres</a>, l'image que vous envoyez est lue localement (en utilisant les ressources de votre appareil) et le premier code-barres trouvé est identifié.</p>
@@ -124,7 +125,8 @@
 		<p>
 			De retour sur la page principale, l'API du ministère de l'Économie est consultée avec une demande par code-barres.<br>
 			Par exemple, pour le code-barres <code>3770001691053</code>, l'URL demandée est <a href="https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D3770001691053">celle-ci</a>.<br>
-			Cette adresse envoie une requête SQL <code>WHERE gtin=3770001691053</code>, ou dont le critère est que le GTIN (le code-barres du produit) soit <code>3770001691053</code>.
+			Cette adresse envoie une requête SQL <code>WHERE gtin=3770001691053</code>, ou dont le critère est que le GTIN (le code-barres du produit) soit <code>3770001691053</code>.<br>
+			Si vous voulez voir à quoi ressemble un rappel sur Scan Conso, enregistrez manuellement le code-barres <code>3770001691053</code>.
 		</p>
 		<p>En réponse, l'API envoie une liste de résultats (les différents rappels liés au code-barres demandé) qui peut être vide, au format JSON.</p>
 		<p>Il ne reste plus qu'à afficher la réponse de manière plus accessible. Les résultats sont triés dans l'ordre :<ol>
