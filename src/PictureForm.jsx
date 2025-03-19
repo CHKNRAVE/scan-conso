@@ -61,7 +61,7 @@ export default function PictureForm() {
 			{!uploadedImage && <p id="uploadInfo">
 				Vos photos ne sont ni conservées, ni mises en ligne.<br />
 				Le code-barres va être lu localement.<br />
-				Vous allez recevoir un avertissement avant de quitter la page, il sert à empêcher une actualisation automatique après avoir pris une photo.
+				Vous pouvez recevoir un avertissement avant de quitter la page, il sert à empêcher une actualisation automatique après avoir pris une photo.
 			</p>}
 		</div>
 		<img ref={submittedImageRef} src={uploadedImage} id="submittedImage" />
