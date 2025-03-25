@@ -5,6 +5,7 @@ import { createCode } from "./codes.mjs";
 export default function PictureForm() {
 	const [uploadedImage, setUploadedImage] = useState(null);
 	const [fileValidated, setFileValidated] = useState(false);
+	const [cameraModeEnabled, setCameraMode] = useState(false);
 	const [codeType, setCodeType] = useState(null);
 	const [codeValue, setCodeValue] = useState(null);
 	const [codeLabel, setCodeLabel] = useState("");
@@ -24,6 +25,7 @@ export default function PictureForm() {
 	const reset = function() {
 		setUploadedImage(null);
 		setFileValidated(false);
+		setCameraMode(false);
 		setCodeLabel(null);
 		setCodeValue(null);
 		setCodeLabel("");
@@ -54,11 +56,23 @@ export default function PictureForm() {
 		reset();
 	};
 
+	console.log("Test");
+	navigator.permissions.query({name: "camera"}).then(console.log, console.warn);
+
+	const requestCameraAccess = function() {
+	};
+
 	return <>
 		<h2>Scanner un code</h2>
 		<div id="uploadField">
 			<input type="file" accept="/image" value={""} onInput={onFileInput} />
-			{!uploadedImage && <p id="uploadInfo">
+			<div className="cameraDiv">
+				{cameraModeEnabled && <div>
+
+				</div>}
+				{!cameraModeEnabled && <button onClick={requestCameraAccess}>Autoriser la caméra</button>}
+			</div>
+			{!uploadedImage && !codeType && <p id="uploadInfo">
 				Vos photos ne sont ni conservées, ni mises en ligne.<br />
 				Le code-barres va être lu localement.<br />
 				Vous pouvez recevoir un avertissement avant de quitter la page, il sert à empêcher une actualisation automatique après avoir pris une photo.
