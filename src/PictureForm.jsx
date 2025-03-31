@@ -33,9 +33,11 @@ export default function PictureForm() {
 		if(!cameraModeEnabled) return;
 
 		let cameraSnapshotInterval;
+		let cameraStream;
 
 		navigator.mediaDevices.getUserMedia({video: {facingMode: {ideal: "environment"}}}).then(stream => {
 			videoElementRef.current.srcObject = stream;
+			cameraStream = stream;
 
 			cameraSnapshotInterval = setInterval(() => {
 				new BarcodeDetector({
@@ -49,7 +51,10 @@ export default function PictureForm() {
 				});
 			}, 500);
 		}, console.warn);
-		return () => clearInterval(cameraSnapshotInterval);
+		return () => {
+			clearInterval(cameraSnapshotInterval);
+			cameraStream.getTracks().forEach(track => track.stop());
+		};
 	}, [cameraModeEnabled]);
 
 	const reset = function() {
@@ -95,7 +100,7 @@ export default function PictureForm() {
 		<div id="uploadField">
 			<input type="file" accept="/image" value={""} onInput={onFileInput} />
 			{cameraModeAllowed && <div className="cameraDiv">
-				<video ref={videoElementRef} width={300} height={300} autoPlay hidden={!cameraModeEnabled} />
+				<video ref={videoElementRef} autoPlay hidden={!cameraModeEnabled} />
 				{cameraModeEnabled && <p>L'image en direct est utilisée localement 2 fois par seconde.</p>}
 				{!cameraModeEnabled && <button onClick={requestCameraAccess}>Autoriser la caméra</button>}
 			</div>}

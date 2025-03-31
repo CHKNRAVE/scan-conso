@@ -420,3 +420,22 @@ td {
 	padding: var(--icon-padding);
 	filter: drop-shadow(3px 3px 1px Black);
 }
+
+.cameraDiv {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+.cameraDiv > video {
+	max-width: 50vw;
+	max-height: 25vh;
+}
+
+#scanPanelCloseButton {
+	color: var(--france-blue);
+	width: 2em;
+	position: absolute;
+	right: var(--horizontal-padding);
+	cursor: pointer;
+}

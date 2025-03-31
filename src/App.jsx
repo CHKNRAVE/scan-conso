@@ -28,7 +28,7 @@ export default function App() {
 		<Header openScanPanel={openScanPanel}/>
 		{scanPanelOpenState && <>
 			<div id="panelDarkBackground" onClick={closeScanPanel}></div>
-			<Scan />
+			<Scan closeScanPanel={closeScanPanel} />
 		</>}
 		<CodeList />
 		{canInstallApp && <InstallPrompt />}
