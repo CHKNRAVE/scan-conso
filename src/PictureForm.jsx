@@ -6,7 +6,6 @@ import LiveInput from "./LiveInput";
 export default function PictureForm() {
 	const [uploadedImage, setUploadedImage] = useState(null);
 	const [fileValidated, setFileValidated] = useState(false);
-	const [cameraModeAllowed, setCameraModePermission] = useState(false);
 	const [cameraModeEnabled, setCameraMode] = useState(false);
 	const [codeType, setCodeType] = useState(null);
 	const [codeValue, setCodeValue] = useState(null);
@@ -21,13 +20,6 @@ export default function PictureForm() {
 			ev.returnValue = "";
 		};
 		window.addEventListener("beforeunload", beforeUnloadListener);
-		
-		const userMediaAvailable = "getUserMedia" in navigator?.mediaDevices;
-		if(userMediaAvailable) navigator.permissions.query({name: "camera"}).then(cameraPermissionStatus => {
-			if(cameraPermissionStatus.state !== "denied") setCameraModePermission(true);
-		}, console.warn);
-
-		return () => window.removeEventListener("beforeunload", beforeUnloadListener);
 	}, []);
 
 	useEffect(() => {

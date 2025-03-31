@@ -1,8 +1,18 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react";
+import { createCode } from "./codes.mjs";
 
 export default function LiveInput() {
 	const [cameraModeAllowed, setCameraModePermission] = useState(false);
 	const [mediaStream, setMediaStream] = useState(null);
+
+	const videoElementRef = useRef(null);
+
+	useEffect(() => {
+		const userMediaAvailable = "getUserMedia" in navigator?.mediaDevices;
+		if(userMediaAvailable) navigator.permissions.query({name: "camera"}).then(cameraPermissionStatus => {
+			if(cameraPermissionStatus.state !== "denied") setCameraModePermission(true);
+		}, console.warn);
+	}, []);
 
 	useEffect(() => {
 		if(!mediaStream) return;
@@ -22,7 +32,7 @@ export default function LiveInput() {
 				if(liveCodeLabel !== null) createCode(liveCodeType, liveCodeValue, liveCodeLabel);
 			});
 		}, 500);
-		
+
 		return () => {
 			clearInterval(cameraSnapshotInterval);
 			mediaStream.getTracks().forEach(track => track.stop());
