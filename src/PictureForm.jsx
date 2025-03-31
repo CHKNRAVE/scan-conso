@@ -92,7 +92,10 @@ export default function PictureForm() {
 	};
 
 	const requestCameraAccess = function() {
-		navigator.mediaDevices.getUserMedia({video: {facingMode: {ideal: "environment"}}}).then(() => setCameraMode(true), console.warn);
+		navigator.mediaDevices.getUserMedia({video: {facingMode: {ideal: "environment"}}}).then(stream => {
+			stream.getTracks().forEach(track => track.stop());
+			setCameraMode(true);
+		}, console.warn);
 	};
 
 	return <>
