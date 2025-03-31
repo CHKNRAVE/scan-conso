@@ -1,6 +1,7 @@
 import { BarcodeDetector } from "barcode-detector";
 import { createRef, useEffect, useRef, useState } from "react"
 import { createCode } from "./codes.mjs";
+import LiveInput from "./LiveInput";
 
 export default function PictureForm() {
 	const [uploadedImage, setUploadedImage] = useState(null);
@@ -91,28 +92,17 @@ export default function PictureForm() {
 		reset();
 	};
 
-	const requestCameraAccess = function() {
-		navigator.mediaDevices.getUserMedia({video: {facingMode: {ideal: "environment"}}}).then(stream => {
-			stream.getTracks().forEach(track => track.stop());
-			setCameraMode(true);
-		}, console.warn);
-	};
-
 	return <>
 		<h2>Scanner un code</h2>
 		<div id="uploadField">
 			<input type="file" accept="/image" value={""} onInput={onFileInput} />
-			{cameraModeAllowed && <div className="cameraDiv">
-				<video ref={videoElementRef} autoPlay hidden={!cameraModeEnabled} />
-				{cameraModeEnabled && <p>L'image en direct est utilisée localement 2 fois par seconde.</p>}
-				{!cameraModeEnabled && <button onClick={requestCameraAccess}>Autoriser la caméra</button>}
-			</div>}
 			{!uploadedImage && !codeType && <p id="uploadInfo">
 				Vos photos ne sont ni conservées, ni mises en ligne.<br />
 				Le code-barres va être lu localement.<br />
 				Vous pouvez recevoir un avertissement avant de quitter la page, il sert à empêcher une actualisation automatique après avoir pris une photo.
 			</p>}
 		</div>
+		<LiveInput />
 		<img ref={submittedImageRef} src={uploadedImage} id="submittedImage" />
 		{uploadedImage && !fileValidated && <button onClick={onPictureSubmission}>Trouver un code</button>}
 		<form onSubmit={onFormSubmission}>
