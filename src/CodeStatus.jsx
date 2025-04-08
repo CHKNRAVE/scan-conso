@@ -46,7 +46,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		return () => controller.abort("Cleaned up");
 	}, [value, forcedReloadCount]);
 
-	return <div className={`codeStatus ${status}`} data-height={data?.length || 1}>
+	return <section className={`codeStatus ${status}`} data-height={data?.length || 1}>
 		<div className="codeHeader">
 			<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
 			<span className="codeLabel">{label}</span><br />
@@ -57,5 +57,5 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		{status === "clear" && ignoredCount === 1 && <span className="statusDesc">1 rappel masqué</span>}
 		{status === "clear" && ignoredCount > 1 && <span className="statusDesc">{ignoredCount} rappels masqués</span>}
 		{status === "error" && <span className="statusDesc">Erreur lors de l'obtention des résultats.<br />{errorDesc}</span>}
-	</div>
+	</section>
 };

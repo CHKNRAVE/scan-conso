@@ -22,10 +22,12 @@ export default function StatusDesc({recall, forceReload}) {
 			<DismissButton guid={recall.rappel_guid} forceReload={forceReload}/>
 			<span className="recallReason">{recall.motif_rappel}</span>
 		</span>
-		<img className="productImage" src={recall.liens_vers_les_images.split("|")[0]} onError={ev => ev.target.style.display = "none"} />
-		<span>
-			<span className="brandName">{recall.marque_produit}</span> — <span className="productName">{recall.modeles_ou_references}</span>
-		</span>
+		<figure>
+			<img className="productImage" src={recall.liens_vers_les_images.split("|")[0]} onError={ev => ev.target.style.display = "none"} />
+			<figcaption>
+				<span className="brandName">{recall.marque_produit}</span> — <span className="productName">{recall.modeles_ou_references}</span>
+			</figcaption>
+		</figure>
 		<div>
 			<span></span>
 			<table>
