@@ -56,7 +56,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	return <section className={`codeStatus ${status}`} data-height={data?.length || 1}>
 		<div className="codeHeader">
 			<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
-			<span className="codeLabel">{label}</span><br />
+			<h2 className="codeLabel">{label}</h2><br />
 			<span className="codeDetails">{verboseCodeTypes[type]} {value}</span>
 		</div>
 		{data && data.map(recall => <StatusDesc key={recall.rappel_guid} recall={recall} forceReload={forceReload} />)}
