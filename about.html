@@ -108,10 +108,10 @@
 			<p>Attention, effacer vos données temporaires (en vidant votre historique, votre cache...) risque de tout effacer.</p>
 			<p>Utilisez les boutons ci-dessous pour manipuler vos données, par exemple pour garder une copie de sauvegarde.</p>
 			<div id="storageButtons">
-				<button onclick="exportLocalStorage()">Copier les données locales</button>
-				<button onclick="importLocalStorage()">Importer des données</button>
-				<button onclick="clearLocalStorage()">Effacer les données locales</button>
-				<button onclick="resetDismissedRecalls()">Réinitialiser les rappels masqués</button>
+				<button type="button" onclick="exportLocalStorage()">Copier les données locales</button>
+				<button type="button" onclick="importLocalStorage()">Importer des données</button>
+				<button type="button" onclick="clearLocalStorage()">Effacer les données locales</button>
+				<button type="button" onclick="resetDismissedRecalls()">Réinitialiser les rappels masqués</button>
 			</div>
 			<p>Tout est stocké dans <code>localStorage</code>. Les navigateurs lui accordent une taille maximale de 5Mo en moyenne, soit plus de 130000 codes-barres avec des surnoms de 20 caractères chacun.</p>
 			<p>Vous pouvez <a href="javascript:popUpLocalStorage()">cliquer ici</a> pour afficher le contenu de <code>localStorage</code> dans une alerte du navigateur, et ainsi voir 100% de ce qui est stocké dans votre navigateur pour ce site.</p>
