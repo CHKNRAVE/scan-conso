@@ -5,6 +5,8 @@
 
 	--clear-background-color: LightGreen;
 	--clear-border-color: DarkGreen;
+	--loading-background-color: LightGray;
+	--loading-border-color: Gray;
 	--default-background-color: LightGreen;
 	--default-border-color: DarkGreen;
 	--error-background-color: Yellow;
@@ -207,6 +209,11 @@ header svg {
 	grid-column-end: -1;
 }
 
+.loading {
+	order: 2 !important;
+	--border-color: var(--loading-border-color);
+	--background-color: var(--loading-background-color);
+}
 .warning {
 	order: 1 !important;
 	--border-color: var(--warning-border-color);

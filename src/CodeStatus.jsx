@@ -15,17 +15,21 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	const [ignoredCount, setIgnoredCount] = useState(0);
 
 	const onFetchFailure = function(reason) {
-		if(reason === "Cleaned up") return Promise.reject(reason);
+		if(reason === "Cleaned up") return;
 		console.error("Fetch failure on barcode", type, value, "\n", reason);
 		setStatus("error");
 		setErrorDesc("Erreur inconnue à l'obtention des résultats.");
-
-		return Promise.reject();
+	};
+	
+	const onResponseBadStatusCode = function(response) {
+		console.error("Bad response status code", response);
+		setStatus("error");
+		setErrorDesc(`Erreur ${response.status} dans la réponse de Signal Conso.`);
 	};
 
 	const onResponseParsingFailure = function(reason) {
 		if(reason === "Cleaned up") return;
-		console.error("Fetch failure on barcode", type, value, "\n", reason);
+		console.error("Response parsing failure on barcode", type, value, "\n", reason);
 		setStatus("error");
 		setErrorDesc("Erreur inconnue à l'obtention des résultats.");
 	};
@@ -41,12 +45,15 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	useEffect(() => {
 		const controller = new AbortController(), signal = controller.signal;
 		const fetchUrl = `https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D${value}`;
-		fetch(fetchUrl, {signal}).then(response => response.json(), onFetchFailure).then(onRequestSuccess, onResponseParsingFailure);
+		fetch(fetchUrl, {signal}).then(response => {
+			if(response.ok) return response.json().then(onRequestSuccess, onResponseParsingFailure);
+			return onResponseBadStatusCode(response);
+		}, onFetchFailure);
 
 		return () => controller.abort("Cleaned up");
 	}, [value, forcedReloadCount]);
 
-	return <div className={`codeStatus ${status}`} data-height={data?.length || 1}>
+	return <section className={`codeStatus ${status}`} data-height={data?.length || 1}>
 		<div className="codeHeader">
 			<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
 			<span className="codeLabel">{label}</span><br />
@@ -56,6 +63,6 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		{status === "clear" && ignoredCount === 0 && <span className="statusDesc">Aucun rappel signalé !</span>}
 		{status === "clear" && ignoredCount === 1 && <span className="statusDesc">1 rappel masqué</span>}
 		{status === "clear" && ignoredCount > 1 && <span className="statusDesc">{ignoredCount} rappels masqués</span>}
-		{status === "error" && <span className="statusDesc">Erreur lors de l'obtention des résultats.<br />{errorDesc}</span>}
-	</div>
+		{status === "error" && <span className="statusDesc">Une erreur a été rencontrée.<br />{errorDesc}</span>}
+	</section>
 };
