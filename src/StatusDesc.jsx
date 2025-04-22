@@ -11,11 +11,21 @@ export default function StatusDesc({recall, forceReload}) {
 		const isOneExpirationDate = dollarSplit[3] && !dollarSplit[4];
 		const isExpirationDateRange = dollarSplit[3] && dollarSplit[4];
 		hasExpirationDate = !hasNoExpirationDate;
-		let expirationDate;
+		let expirationDate, expirationDateTime;
 		if(hasNoExpirationDate) expirationDate = null;
-		if(isOneExpirationDate) expirationDate = new Date(dollarSplit[3]).toLocaleDateString();
-		if(isExpirationDateRange) expirationDate = `${new Date(dollarSplit[3]).toLocaleDateString()} à ${new Date(dollarSplit[4]).toLocaleDateString()}`;
-		return {barcode, setNumber, expirationDate};
+		if(isOneExpirationDate) {
+			expirationDate = new Date(dollarSplit[3]).toLocaleDateString();
+			expirationDateTime = expirationDate.split("/").toReversed().join("-");
+		};
+		if(isExpirationDateRange) {
+			let expirationDate1 = new Date(dollarSplit[3]).toLocaleDateString();
+			let expirationDate2 = new Date(dollarSplit[4]).toLocaleDateString();
+			expirationDate = `${expirationDate1} à ${expirationDate2}`;
+			let expirationDateTime1 = expirationDate1.split("/").toReversed().join("-");
+			let expirationDateTime2 = expirationDate2.split("/").toReversed().join("-");
+			expirationDateTime = `${expirationDateTime1} ~ ${expirationDateTime2}`;
+		}
+		return {barcode, setNumber, expirationDate, expirationDateTime};
 	});
 	const altText = `${recall.marque_produit} — ${recall.modeles_ou_references}`;
 	const linkTitle = `Consulter la fiche rappel de : ${recall.marque_produit} — ${recall.modeles_ou_references}`;
@@ -41,7 +51,7 @@ export default function StatusDesc({recall, forceReload}) {
 				<tbody>{identificationStrings.map((article, index) => <tr key={index}>
 					<td title={`Code-barres ${article.barcode}`} headers="code-barres">{article.barcode}</td>
 					{hasSetNumber && <td headers="lots">{article.setNumber}</td>}
-					{hasExpirationDate && <td headers="dates limites"><time dateTime={article.expirationDate.split("/").toReversed().join("-")}>{article.expirationDate}</time></td>}
+					{hasExpirationDate && <td headers="dates limites"><time dateTime={article.expirationDateTime}>{article.expirationDate}</time></td>}
 				</tr>)}</tbody>
 			</table>
 		</div>

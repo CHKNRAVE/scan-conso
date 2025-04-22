@@ -360,25 +360,17 @@ td {
 
 #manualForm {
 	font-size: 1.25em;
-	display: flex;
-	flex-flow: column;
-	row-gap: 0.25em;
-}
-
-#manualForm label {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-template-columns: max-content 1fr;
 	column-gap: 1ch;
-}
-
-#manualForm label input, #manualForm label select {
-	align-self: flex-end;
+	row-gap: 0.25em;
 }
 
 #manualForm button {
 	font-size: 1.25em;
 	width: 100%;
 	margin-top: 0.5em;
+	grid-column: span 2;
 }
 
 .codeLabel {

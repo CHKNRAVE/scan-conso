@@ -7,7 +7,7 @@ export default function Scan({closeScanPanel}) {
 		<h2>Scanner un code</h2>
 		<ScanPanelCloseButton closeScanPanel={closeScanPanel}/>
 		<PictureForm />
-		<h4>ou</h4>
+		<h4 aria-hidden={true}>ou</h4>
 		<ManualForm />
 	</aside>
 };

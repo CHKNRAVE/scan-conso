@@ -22,18 +22,14 @@ export default function ManualForm() {
 	return <>
 		<h2>Entrer un code manuellement</h2>
 		<form onSubmit={onFormSubmission} id="manualForm">
-			<label>
-				<span>Code : </span>
-				<input type="number" value={codeValue} required onChange={ev => setCodeValue(ev.target.value)}/>
-			</label>
-			<label><span>Type : </span>
-				<select value={codeType} onChange={ev => setCodeType(ev.target.value)} disabled>
-					<option label="Code-barres" value="ean_13" selected />
-				</select>
-			</label>
-			<label>
-				<span>Surnom : </span>
-				<input value={codeLabel} required id="codeLabel" onChange={ev => setCodeLabel(ev.target.value)}/></label>
+			<label aria-hidden={true} htmlFor="codeValue">Code :</label>
+			<input aria-label="Champ d'entrée du code" id="codeValue" type="number" value={codeValue} required onChange={ev => setCodeValue(ev.target.value)}/>
+			<label htmlFor="codeType" aria-hidden={true}>Type :</label>
+			<select aria-label="Champ d'entrée du type de code" id="codeType" aria-hidden={true} value={codeType} onChange={ev => setCodeType(ev.target.value)} disabled>
+				<option label="Code-barres" value="ean_13" selected />
+			</select>
+			<label aria-hidden={true} htmlFor="codeLabel">Surnom :</label>
+			<input aria-label="Champ d'entrée du surnom" value={codeLabel} required id="codeLabel" onChange={ev => setCodeLabel(ev.target.value)}/>
 			<button>Valider</button>
 		</form>
 	</>
