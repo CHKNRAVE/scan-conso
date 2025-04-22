@@ -25,16 +25,16 @@ export default function App() {
 	const notificationsNotAsked = Notification?.permission === "default";
 	
 	return <>
-		<Header openScanPanel={openScanPanel}/>
-		<main>
-			{scanPanelOpenState && <>
-				<div id="panelDarkBackground" onClick={closeScanPanel}></div>
-				<Scan closeScanPanel={closeScanPanel} />
-			</>}
+		<Header openScanPanel={openScanPanel} scanPanelOpenState={scanPanelOpenState}/>
+		{scanPanelOpenState && <>
+			<div id="panelDarkBackground" onClick={closeScanPanel}></div>
+			<Scan closeScanPanel={closeScanPanel} />
+		</>}
+		<div aria-hidden={scanPanelOpenState}>
 			<CodeList />
 			{canInstallApp && <InstallPrompt />}
 			{notificationsNotAsked && <NotificationPrompt />}
 			<Tutorial />
-		</main>
+		</div>
 	</>
 };

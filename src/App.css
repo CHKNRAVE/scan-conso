@@ -471,11 +471,23 @@ td {
 }
 
 #scanPanelCloseButton {
-	color: var(--france-blue);
-	width: 2em;
+	width: 3em;
+	aspect-ratio: 1;
+	border: none;
+	padding: 0;
+	background-color: Transparent;
 	position: absolute;
 	right: var(--horizontal-padding);
 	cursor: pointer;
+}
+
+#scanPanelCloseButton:hover {
+	filter: brightness(var(--button-hover-brightness-rate));
+}
+
+#scanPanelCloseButton svg {
+	color: var(--france-blue);
+	width: 100%;
 }
 
 .fullInfoLink {

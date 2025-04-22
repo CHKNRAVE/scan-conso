@@ -26,10 +26,9 @@ export default function ManualForm() {
 				<span>Code : </span>
 				<input type="number" value={codeValue} required onChange={ev => setCodeValue(ev.target.value)}/>
 			</label>
-			<label><
-				span>Type : </span>
-				<select value={codeType} onChange={ev => setCodeType(ev.target.value)}>
-					<option label="Code-barres" value="ean_13" />
+			<label><span>Type : </span>
+				<select value={codeType} onChange={ev => setCodeType(ev.target.value)} disabled>
+					<option label="Code-barres" value="ean_13" selected />
 				</select>
 			</label>
 			<label>

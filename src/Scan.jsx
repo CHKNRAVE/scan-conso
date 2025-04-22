@@ -4,9 +4,10 @@ import ScanPanelCloseButton from "./ScanPanelCloseButton";
 
 export default function Scan({closeScanPanel}) {
 	return <aside id="scanPanel" onClick={ev => ev.stopPropagation()}>
+		<h2>Scanner un code</h2>
+		<ScanPanelCloseButton closeScanPanel={closeScanPanel}/>
 		<PictureForm />
 		<h4>ou</h4>
 		<ManualForm />
-		<ScanPanelCloseButton closeScanPanel={closeScanPanel}/>
 	</aside>
 };

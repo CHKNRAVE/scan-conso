@@ -85,9 +85,8 @@ export default function PictureForm() {
 	};
 
 	return <>
-		<h2>Scanner un code</h2>
 		<div id="uploadField">
-			<input type="file" accept="/image" value={""} onInput={onFileInput} />
+			<input title="Envoyer une photo du code-barres" type="file" accept="/image" value={""} onInput={onFileInput} />
 			{!uploadedImage && !codeType && <p id="uploadInfo">
 				Vos photos ne sont ni conservées, ni mises en ligne.<br />
 				Le code-barres va être lu localement.<br />
