@@ -22,6 +22,6 @@ export default function InstallPrompt() {
 	return showInstallPrompt && <div id="installPrompt">
 		<h2>Le saviez-vous ?</h2>
 		<p>Votre navigateur peut installer des sites en tant qu'applis.<br />Vous pourrez ainsi y accéder comme vous accédez à une appli, au lieu de taper l'adresse !</p>
-		<button onClick={() => promptInstall()}>Installer Scan Conso</button>
+		<button type="button" onClick={() => promptInstall()}>Installer Scan Conso</button>
 	</div>
 };

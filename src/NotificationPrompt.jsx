@@ -7,6 +7,6 @@ export default function NotificationPrompt() {
 			Cette notification apparaît si un rappel a été trouvé, et la vérification est effectuée toutes les 12 heures.<br />
 			Vous pouvez aussi retirer ce message en les refusant.
 		</p>
-		<button onClick={() => Notification.requestPermission().then(() => location.reload(), console.warn)}>Autoriser ou refuser les notifications</button>
+		<button type="button" onClick={() => Notification.requestPermission().then(() => location.reload(), console.warn)}>Autoriser ou refuser les notifications</button>
 	</div>
 };

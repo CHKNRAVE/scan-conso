@@ -95,12 +95,12 @@ export default function PictureForm() {
 		</div>
 		<LiveInput />
 		<img ref={submittedImageRef} src={uploadedImage} id="submittedImage" />
-		{uploadedImage && !fileValidated && <button onClick={onPictureSubmission}>Trouver un code</button>}
+		{uploadedImage && !fileValidated && <button type="button" onClick={onPictureSubmission}>Trouver un code</button>}
 		<form onSubmit={onFormSubmission}>
 			{fileValidated && <div>Type de code trouvé : {codeType || "aucun"}</div>}
 			{fileValidated && codeType && <div>Code trouvé : {codeValue}</div>}
 			{fileValidated && codeType && <label>Surnom : <input value={codeLabel} required id="codeLabel" onChange={ev => setCodeLabel(ev.target.value)}/></label>}
-			{fileValidated && codeType && <button>Ajouter</button>}
+			{fileValidated && codeType && <button type="button">Ajouter</button>}
 		</form>
 	</>
 }

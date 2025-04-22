@@ -42,7 +42,7 @@ export default function LiveInput() {
 
 	if(cameraModeAllowed) return <div className="cameraDiv">
 		<video ref={videoElementRef} autoPlay hidden={!mediaStream} />
-		{mediaStream ? <p>L'image en direct est utilisée localement 2 fois par seconde.</p> : <button onClick={requestCameraAccess}>Autoriser la caméra</button>}
+		{mediaStream ? <p>L'image en direct est utilisée localement 2 fois par seconde.</p> : <button type="button" onClick={requestCameraAccess}>Autoriser la caméra</button>}
 	</div>
 	return <></>
 };
