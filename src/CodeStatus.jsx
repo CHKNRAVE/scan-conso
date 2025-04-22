@@ -18,7 +18,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		if(reason === "Cleaned up") return;
 		console.error("Fetch failure on barcode", type, value, "\n", reason);
 		setStatus("error");
-		setErrorDesc("Erreur inconnue à l'obtention des résultats.");
+		setErrorDesc(reason.message);
 	};
 	
 	const onResponseBadStatusCode = function(response) {
