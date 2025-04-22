@@ -55,9 +55,9 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 
 	return <section className={`codeStatus ${status}`} data-height={data?.length || 1}>
 		<div className="codeHeader">
-			<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
 			<h2 className="codeLabel">{label}</h2><br />
 			<span className="codeDetails">{verboseCodeTypes[type]} {value}</span>
+			<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
 		</div>
 		{data && data.map(recall => <StatusDesc key={recall.rappel_guid} recall={recall} forceReload={forceReload} />)}
 		{status === "clear" && ignoredCount === 0 && <span className="statusDesc">Aucun rappel signalé !</span>}

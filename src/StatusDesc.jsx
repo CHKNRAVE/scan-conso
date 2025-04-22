@@ -18,11 +18,12 @@ export default function StatusDesc({recall, forceReload}) {
 		return {barcode, setNumber, expirationDate};
 	});
 	const altText = `${recall.marque_produit} — ${recall.modeles_ou_references}`;
+	const linkTitle = `Consulter la fiche rappel de : ${recall.marque_produit} — ${recall.modeles_ou_references}`;
 	return <div className="statusDesc">
-		<span>
-			<DismissButton guid={recall.rappel_guid} forceReload={forceReload}/>
+		<div className="recallTitle">
 			<span className="recallReason">{recall.motif_rappel}</span>
-		</span>
+			<DismissButton guid={recall.rappel_guid} forceReload={forceReload}/>
+		</div>
 		<figure>
 			<img className="productImage" src={recall.liens_vers_les_images.split("|")[0]} onError={ev => ev.target.style.display = "none"} alt={altText} />
 			<figcaption>
@@ -33,17 +34,17 @@ export default function StatusDesc({recall, forceReload}) {
 			<span></span>
 			<table>
 				<thead><tr>
-					<th>Code-barres</th>
-					{hasSetNumber && <th>Lot</th>}
-					{hasExpirationDate && <th>Date limite</th>}
+					<th scope="col">Code-barres</th>
+					{hasSetNumber && <th scope="col">Lot</th>}
+					{hasExpirationDate && <th scope="col">Date limite</th>}
 				</tr></thead>
 				<tbody>{identificationStrings.map((article, index) => <tr key={index}>
-					<td>{article.barcode}</td>
-					{hasSetNumber && <td>{article.setNumber}</td>}
-					{hasExpirationDate && <td>{article.expirationDate}</td>}
+					<td title={`Code-barres ${article.barcode}`} headers="code-barres">{article.barcode}</td>
+					{hasSetNumber && <td headers="lots">{article.setNumber}</td>}
+					{hasExpirationDate && <td headers="dates limites"><time dateTime={article.expirationDate.split("/").toReversed().join("-")}>{article.expirationDate}</time></td>}
 				</tr>)}</tbody>
 			</table>
 		</div>
-		<a className="fullInfoLink" href={recall.lien_vers_la_fiche_rappel}>Voir sur Rappel Conso</a>
+		<a className="fullInfoLink" href={recall.lien_vers_la_fiche_rappel} title={linkTitle}>Voir sur Rappel Conso</a>
 	</div>
 };

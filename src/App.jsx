@@ -26,13 +26,15 @@ export default function App() {
 	
 	return <>
 		<Header openScanPanel={openScanPanel}/>
-		{scanPanelOpenState && <>
-			<div id="panelDarkBackground" onClick={closeScanPanel}></div>
-			<Scan closeScanPanel={closeScanPanel} />
-		</>}
-		<CodeList />
-		{canInstallApp && <InstallPrompt />}
-		{notificationsNotAsked && <NotificationPrompt />}
-		<Tutorial />
+		<main>
+			{scanPanelOpenState && <>
+				<div id="panelDarkBackground" onClick={closeScanPanel}></div>
+				<Scan closeScanPanel={closeScanPanel} />
+			</>}
+			<CodeList />
+			{canInstallApp && <InstallPrompt />}
+			{notificationsNotAsked && <NotificationPrompt />}
+			<Tutorial />
+		</main>
 	</>
 };

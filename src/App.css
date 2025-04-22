@@ -23,7 +23,7 @@
 	--code-list-vertical-gap: 0.5em;
 	--code-header-font-size: 1.25em;
 	--code-header-bottom-margin: 0.25em;
-	--delete-button-right-margin: 1ch;
+	--delete-button-spacing: 1ch;
 	--delete-icon-size: 1.25rem;
 	--dismiss-icon-size: 1rem;
 	--header-font-size: 1.5em;
@@ -32,7 +32,6 @@
 	--landscape-scan-panel-width: 75vw;
 	--portrait-scan-panel-bottom-margin: 25%;
 	--product-block-margin: 0.5em;
-	--scan-icon-size: 2em;
 	--submitted-image-max-size: 50%;
 	--subsequent-status-desc-gap: 2em;
 	--title-size: 1.75rem;
@@ -71,7 +70,7 @@ header a, footer a {
 	color: var(--font-color);
 }
 
-header svg {
+header a {
 	width: var(--title-size);
 	height: var(--title-size);
 }
@@ -86,11 +85,16 @@ header svg {
 	cursor: pointer;
 	background-color: var(--france-red);
 	border-radius: var(--icon-padding);
+	padding: 0.25em;
+	border: none;
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: calc(var(--scan-icon-size) + (var(--icon-padding) * 2));
-	height: calc(var(--scan-icon-size) + (var(--icon-padding) * 2));
+	height: 100%;
+	aspect-ratio: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 #scanButton:hover {
@@ -98,10 +102,9 @@ header svg {
 }
 
 #scanButton svg {
-	width: var(--scan-icon-size);
-	height: var(--scan-icon-size);
+	width: 100%;
+	aspect-ratio: 1;
 	color: var(--france-white);
-	padding: var(--icon-padding);
 }
 
 @keyframes darkPanelFadeIn {
@@ -250,17 +253,28 @@ header svg {
 
 .codeHeader {
 	margin-block-end: var(--code-header-bottom-margin);
+	display: flex;
+	flex-wrap: wrap;
 	width: 100%;
+}
+
+.codeDetails {
+	width: 100%;
+	order: 3;
 }
 
 .deleteButton {
 	cursor: pointer;
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	padding: var(--icon-padding);
+	border: none;
 	background-color: var(--france-red);
 	border-radius: var(--icon-padding);
-	width: calc(var(--delete-icon-size) + (var(--icon-padding) * 2));
-	height: calc(var(--delete-icon-size) + (var(--icon-padding) * 2));
-	margin-right: var(--delete-button-right-margin);
+	aspect-ratio: 1;
+	height: 2em;
+	margin-right: var(--delete-button-spacing);
+	order: 1;
 }
 
 .deleteButton:hover {
@@ -268,29 +282,28 @@ header svg {
 }
 
 .deleteButton svg {
-	width: var(--delete-icon-size);
-	height: var(--delete-icon-size);
+	width: 100%;
+	aspect-ratio: 1;
 	color: var(--france-white);
-	padding: var(--icon-padding);
 }
 
-[data-height="1"] {
+.codeStatus[data-height="1"] {
 	--grid-rows: 1;
 }
 
-[data-height="2"] {
+.codeStatus[data-height="2"] {
 	--grid-rows: 2;
 }
 
-[data-height="3"] {
+.codeStatus[data-height="3"] {
 	--grid-rows: 3;
 }
 
-[data-height="4"] {
+.codeStatus[data-height="4"] {
 	--grid-rows: 4;
 }
 
-[data-height="5"] {
+.codeStatus[data-height="5"] {
 	--grid-rows: 5;
 }
 
@@ -306,8 +319,15 @@ header svg {
 	margin-block: var(--product-block-margin);
 }
 
+.recallTitle {
+	display: flex;
+	align-items: center;
+	gap: var(--delete-button-spacing);
+}
+
 .recallReason {
 	font-weight: bolder;
+	order: 2;
 }
 
 .recallReason, .brandName {
@@ -363,6 +383,7 @@ td {
 	margin-block-start: 0;
 	margin-block-end: 0;
 	display: inline-block;
+	order: 2;
 }
 
 .codeDesc {
@@ -411,12 +432,16 @@ td {
 }
 
 .dismissButton {
-	display: inline-block;
+	display: inline-flex;
+	align-items: center;
+	padding: 0;
+	background-color: Transparent;
+	border: none;
 	cursor: pointer;
 	border-radius: var(--icon-padding);
-	width: calc(var(--dismiss-icon-size) + (var(--icon-padding) * 2));
-	height: calc(var(--dismiss-icon-size) + (var(--icon-padding) * 2));
-	margin-right: var(--delete-button-right-margin);
+	height: 1.5em;
+	aspect-ratio: 1;
+	order: 1;
 }
 
 .dismissButton:hover {
@@ -424,10 +449,9 @@ td {
 }
 
 .dismissButton svg {
-	width: var(--delete-icon-size);
-	height: var(--delete-icon-size);
+	width: 100%;
+	aspect-ratio: 1;
 	color: var(--france-white);
-	padding: var(--icon-padding);
 	filter: drop-shadow(3px 3px 1px Black);
 }
 
@@ -448,4 +472,10 @@ td {
 	position: absolute;
 	right: var(--horizontal-padding);
 	cursor: pointer;
+}
+
+.fullInfoLink {
+	font-weight: bold;
+	margin-block-start: 0.25em;
+	color: var(--france-blue);
 }
