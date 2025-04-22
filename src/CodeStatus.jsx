@@ -15,12 +15,16 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	const [ignoredCount, setIgnoredCount] = useState(0);
 
 	const onFetchFailure = function(reason) {
-		if(reason === "Cleaned up") return Promise.reject(reason);
+		if(reason === "Cleaned up") return;
 		console.error("Fetch failure on barcode", type, value, "\n", reason);
 		setStatus("error");
 		setErrorDesc("Erreur inconnue à l'obtention des résultats.");
-
-		return Promise.reject();
+	};
+	
+	const onResponseBadStatusCode = function(response) {
+		console.log("Bad response status code", response);
+		setStatus("error");
+		setErrorDesc(`Erreur ${response.status} dans la réponse de Signal Conso.`);
 	};
 
 	const onResponseParsingFailure = function(reason) {
@@ -41,7 +45,10 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	useEffect(() => {
 		const controller = new AbortController(), signal = controller.signal;
 		const fetchUrl = `https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/rappelconso-v2-gtin-trie/records?where=gtin%3D${value}`;
-		fetch(fetchUrl, {signal}).then(response => response.json(), onFetchFailure).then(onRequestSuccess, onResponseParsingFailure);
+		fetch(fetchUrl, {signal}).then(response => {
+			if(response.ok) return response.json().then(onRequestSuccess, onResponseParsingFailure);
+			return onResponseBadStatusCode(response);
+		}, onFetchFailure);
 
 		return () => controller.abort("Cleaned up");
 	}, [value, forcedReloadCount]);
@@ -56,6 +63,6 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 		{status === "clear" && ignoredCount === 0 && <span className="statusDesc">Aucun rappel signalé !</span>}
 		{status === "clear" && ignoredCount === 1 && <span className="statusDesc">1 rappel masqué</span>}
 		{status === "clear" && ignoredCount > 1 && <span className="statusDesc">{ignoredCount} rappels masqués</span>}
-		{status === "error" && <span className="statusDesc">Erreur lors de l'obtention des résultats.<br />{errorDesc}</span>}
+		{status === "error" && <span className="statusDesc">Une erreur a été rencontrée.<br />{errorDesc}</span>}
 	</section>
 };

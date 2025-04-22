@@ -17,13 +17,14 @@ export default function StatusDesc({recall, forceReload}) {
 		if(isExpirationDateRange) expirationDate = `${new Date(dollarSplit[3]).toLocaleDateString()} à ${new Date(dollarSplit[4]).toLocaleDateString()}`;
 		return {barcode, setNumber, expirationDate};
 	});
+	const altText = `${recall.marque_produit} — ${recall.modeles_ou_references}`;
 	return <div className="statusDesc">
 		<span>
 			<DismissButton guid={recall.rappel_guid} forceReload={forceReload}/>
 			<span className="recallReason">{recall.motif_rappel}</span>
 		</span>
 		<figure>
-			<img className="productImage" src={recall.liens_vers_les_images.split("|")[0]} onError={ev => ev.target.style.display = "none"} />
+			<img className="productImage" src={recall.liens_vers_les_images.split("|")[0]} onError={ev => ev.target.style.display = "none"} alt={altText} />
 			<figcaption>
 				<span className="brandName">{recall.marque_produit}</span> — <span className="productName">{recall.modeles_ou_references}</span>
 			</figcaption>
