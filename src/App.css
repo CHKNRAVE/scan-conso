@@ -81,6 +81,10 @@ header a {
 	margin: var(--vertical-padding) var(--horizontal-padding);
 }
 
+#title a {
+	text-decoration: none;
+}
+
 #scanButton {
 	cursor: pointer;
 	background-color: var(--france-red);
