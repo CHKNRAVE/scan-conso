@@ -16,12 +16,9 @@ export default function LiveInput() {
 
 	useEffect(() => {
 		if(!mediaStream) return;
-
-		let cameraSnapshotInterval;
-
-		videoElementRef.current.srcObject = mediaStream;
 		
-		cameraSnapshotInterval = setInterval(() => {
+		videoElementRef.current.srcObject = mediaStream;
+		const cameraSnapshotInterval = setInterval(() => {
 			new BarcodeDetector({
 				formats: ["ean_13"]
 			}).detect(videoElementRef.current).then(data => {

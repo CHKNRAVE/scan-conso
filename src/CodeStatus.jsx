@@ -22,14 +22,14 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	};
 	
 	const onResponseBadStatusCode = function(response) {
-		console.log("Bad response status code", response);
+		console.error("Bad response status code", response);
 		setStatus("error");
 		setErrorDesc(`Erreur ${response.status} dans la réponse de Signal Conso.`);
 	};
 
 	const onResponseParsingFailure = function(reason) {
 		if(reason === "Cleaned up") return;
-		console.error("Fetch failure on barcode", type, value, "\n", reason);
+		console.error("Response parsing failure on barcode", type, value, "\n", reason);
 		setStatus("error");
 		setErrorDesc("Erreur inconnue à l'obtention des résultats.");
 	};
