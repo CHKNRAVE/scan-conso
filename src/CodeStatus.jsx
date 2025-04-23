@@ -55,7 +55,7 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 
 	const ariaLabel = [verboseCodeTypes[type], ...value.split("")].join(" ");
 
-	return <section className={`codeStatus ${status}`} data-height={data?.length || 1}>
+	return <section className={`codeStatus ${status}`} style={{"--grid-rows": data?.length || 1}}>
 		<h2 className="codeLabel">{label}</h2>
 		<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
 		<span aria-label={ariaLabel} className="codeDetails">{`${verboseCodeTypes[type]} ${value}`}</span>
