@@ -56,11 +56,9 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	const ariaLabel = [verboseCodeTypes[type], ...value.split("")].join(" ");
 
 	return <section className={`codeStatus ${status}`} data-height={data?.length || 1}>
-		<div className="codeHeader">
-			<h2 className="codeLabel">{label}</h2><br />
-			<span aria-label={ariaLabel} className="codeDetails">{`${verboseCodeTypes[type]} ${value}`}</span>
-			<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
-		</div>
+		<h2 className="codeLabel">{label}</h2>
+		<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
+		<span aria-label={ariaLabel} className="codeDetails">{`${verboseCodeTypes[type]} ${value}`}</span>
 		{data && data.map(recall => <StatusDesc key={recall.rappel_guid} recall={recall} forceReload={forceReload} />)}
 		{status === "clear" && ignoredCount === 0 && <span className="statusDesc">Aucun rappel signalé !</span>}
 		{status === "clear" && ignoredCount === 1 && <span className="statusDesc">1 rappel masqué</span>}

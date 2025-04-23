@@ -30,7 +30,7 @@ export default function ManualForm() {
 			</select>
 			<label aria-hidden={true} htmlFor="codeLabel">Surnom :</label>
 			<input aria-label="Champ d'entrée du surnom" value={codeLabel} required id="codeLabel" onChange={ev => setCodeLabel(ev.target.value)}/>
-			<button type="button">Valider</button>
+			<button type="submit">Valider</button>
 		</form>
 	</>
 };

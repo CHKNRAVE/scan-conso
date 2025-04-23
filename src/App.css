@@ -264,21 +264,18 @@ header a {
 
 .codeDetails {
 	width: 100%;
-	order: 3;
 }
 
 .deleteButton {
 	cursor: pointer;
-	display: inline-flex;
-	align-items: center;
 	padding: var(--icon-padding);
 	border: none;
 	background-color: var(--france-red);
 	border-radius: var(--icon-padding);
 	aspect-ratio: 1;
-	height: 2em;
-	margin-right: var(--delete-button-spacing);
-	order: 1;
+	height: 1.75rem;
+	position: absolute;
+	margin: calc(0.6rem / 2);
 }
 
 .deleteButton:hover {
@@ -374,12 +371,12 @@ td {
 }
 
 .codeLabel {
-	font-size: 2em;
+	font-size: 2rem;
 	font-weight: bold;
 	margin-block-start: 0;
 	margin-block-end: 0;
 	display: inline-block;
-	order: 2;
+	text-indent: 2.5rem;
 }
 
 .codeDesc {
