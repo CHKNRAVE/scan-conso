@@ -49,7 +49,7 @@ export default function StatusDesc({recall, forceReload}) {
 					{hasExpirationDate && <th scope="col">Date limite</th>}
 				</tr></thead>
 				<tbody>{identificationStrings.map((article, index) => <tr key={index}>
-					<td title={`Code-barres ${article.barcode}`} headers="code-barres">{article.barcode}</td>
+					<td title={`Code-barres ${article.barcode}`} headers="code-barres" aria-label={`Code-barres ${article.barcode.split("").join(" ")}`}>{article.barcode}</td>
 					{hasSetNumber && <td headers="lots">{article.setNumber}</td>}
 					{hasExpirationDate && <td headers="dates limites"><time dateTime={article.expirationDateTime}>{article.expirationDate}</time></td>}
 				</tr>)}</tbody>

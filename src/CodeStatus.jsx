@@ -54,9 +54,14 @@ export default function CodeStatus({type, value, label, forceRefresh}) {
 	}, [value, forcedReloadCount]);
 
 	const ariaLabel = [verboseCodeTypes[type], ...value.split("")].join(" ");
+	const ariaTitle = `${label} – ${{
+		clear: "aucun rappel",
+		warning: "Rappels retrouvés",
+		error: "erreur rencontrée"
+	}[status]}`;
 
 	return <section className={`codeStatus ${status}`} style={{"--grid-rows": data?.length || 1}}>
-		<h2 className="codeLabel">{label}</h2>
+		<h2 className="codeLabel" aria-label={ariaTitle}>{label}</h2>
 		<DeleteButton codeType={type} codeValue={value} forceRefresh={forceRefresh} />
 		<span aria-label={ariaLabel} className="codeDetails">{`${verboseCodeTypes[type]} ${value}`}</span>
 		{data && data.map(recall => <StatusDesc key={recall.rappel_guid} recall={recall} forceReload={forceReload} />)}
