@@ -5,7 +5,7 @@ import CodeList from './CodeList';
 import Tutorial from './Tutorial';
 import InstallPrompt from './InstallPrompt';
 import initializeServiceWorker, { deleteServiceWorkers } from './serviceWorker.mjs';
-import NotificationPrompt from './NotificationPrompt';
+// import NotificationPrompt from './NotificationPrompt';
 
 
 export default function App() {
@@ -14,15 +14,15 @@ export default function App() {
 	const closeScanPanel = () => setScanPanelOpenState(false);
 	
 	useMemo(() => {
-		const serviceWorkerAllowed = Notification?.permission === "granted";
+		const serviceWorkerAllowed = false; // Notification?.permission === "granted";
 		if(serviceWorkerAllowed) initializeServiceWorker();
 		if(!serviceWorkerAllowed && navigator.serviceWorker?.controller) {
 			deleteServiceWorkers();
 			alert("Scan Conso a détecté que vous avez désactivé les notifications. La vérification périodique est supprimée.")
 		};
-	}, [Notification?.permission]);
+	}, [/*Notification?.permission*/]);
 	const canInstallApp = "onbeforeinstallprompt" in window;
-	const notificationsNotAsked = Notification?.permission === "default";
+	const notificationsNotAsked = false; // Notification?.permission === "default";
 	
 	return <>
 		<Header openScanPanel={openScanPanel} scanPanelOpenState={scanPanelOpenState}/>
@@ -33,7 +33,7 @@ export default function App() {
 		<div aria-hidden={scanPanelOpenState}>
 			<CodeList />
 			{canInstallApp && <InstallPrompt />}
-			{notificationsNotAsked && <NotificationPrompt />}
+			{/* {notificationsNotAsked && <NotificationPrompt />} */}
 			<Tutorial />
 		</div>
 	</>
