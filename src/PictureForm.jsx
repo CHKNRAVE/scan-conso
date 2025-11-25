@@ -24,34 +24,30 @@ export default function PictureForm() {
 
 	useEffect(() => {
 		if(!cameraModeEnabled) return;
-		try {
-			let cameraSnapshotInterval;
-			let cameraStream;
-	
-			navigator.mediaDevices.getUserMedia({video: {facingMode: {ideal: "environment"}}}).then(stream => {
-				videoElementRef.current.srcObject = stream;
-				cameraStream = stream;
-	
-				cameraSnapshotInterval = setInterval(() => {
-					new BarcodeDetector({
-						formats: ["ean_13"]
-					}).detect(videoElementRef.current).then(data => {
-						if(!data.length) return;
-						const liveCodeType = data[0].format;
-						const liveCodeValue = Number(data[0].rawValue);
-						const liveCodeLabel = prompt(`Rentrez un nom pour le code-barres ${liveCodeValue}`);
-						if(liveCodeLabel !== null) createCode(liveCodeType, liveCodeValue, liveCodeLabel);
-					});
-				}, 500);
-			}, console.warn);
-			return () => {
-				clearInterval(cameraSnapshotInterval);
-				cameraStream.getTracks().forEach(track => track.stop());
-			};
-		} catch (error) {
-			setCameraMode(false);
-		}
 
+		let cameraSnapshotInterval;
+		let cameraStream;
+
+		navigator.mediaDevices.getUserMedia({video: {facingMode: {ideal: "environment"}}}).then(stream => {
+			videoElementRef.current.srcObject = stream;
+			cameraStream = stream;
+
+			cameraSnapshotInterval = setInterval(() => {
+				new BarcodeDetector({
+					formats: ["ean_13"]
+				}).detect(videoElementRef.current).then(data => {
+					if(!data.length) return;
+					const liveCodeType = data[0].format;
+					const liveCodeValue = Number(data[0].rawValue);
+					const liveCodeLabel = prompt(`Rentrez un nom pour le code-barres ${liveCodeValue}`);
+					if(liveCodeLabel !== null) createCode(liveCodeType, liveCodeValue, liveCodeLabel);
+				});
+			}, 500);
+		}, console.warn);
+		return () => {
+			clearInterval(cameraSnapshotInterval);
+			cameraStream.getTracks().forEach(track => track.stop());
+		};
 	}, [cameraModeEnabled]);
 
 	const reset = function() {
