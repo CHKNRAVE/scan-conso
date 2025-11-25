@@ -14,7 +14,7 @@ export default function App() {
 	const closeScanPanel = () => setScanPanelOpenState(false);
 	
 	useMemo(() => {
-		const serviceWorkerAllowed = Notification.permission === "granted";
+		const serviceWorkerAllowed = Notification?.permission === "granted";
 		if(serviceWorkerAllowed) initializeServiceWorker();
 		if(!serviceWorkerAllowed && navigator.serviceWorker?.controller) {
 			deleteServiceWorkers();
